@@ -1,8 +1,32 @@
 import React, {useEffect} from 'react'
 import { connect } from 'react-redux';
-import { fetchData } from '../store'
+import { fetchData } from '../store';
+import styled from 'styled-components';
 
+const StyledDIV = styled.div`
+display: flex;
+flex-flow: column wrap;
+margin: 3px;
+margin-top: 5px;
+margin-bottom:5px;
+justify-content: center;
+align-content: center;
+`;
+const StyledPROPS = styled.div `
+padding-top: 5px;
+text-decoration: overline;
+font-size: 115%;
+`;
+const StyledIMG = styled.img`
+width: 30%;
+height: auto;
+border-radius: 30%;
+`;
 
+const StyledLi = styled.li`
+list-style-type: none;
+padding: 15px;
+`;
 
 const Shwifters = (props) => {
     const handleChars = () => {
@@ -18,7 +42,12 @@ const Shwifters = (props) => {
                 <div>
                 <ul>
                 {props.isLoading ||  props.name.map((item) => {
-                  return <li key={item.id}><img src={item.image} />{item.name}status:{item.status}</li>
+                  return <StyledLi key={item.id} >
+                            <StyledDIV className='charList'>
+                                <StyledIMG src={item.image} />
+                                <StyledPROPS>{item.name}<br></br>status: {item.status}</StyledPROPS>
+                            </StyledDIV>
+                        </StyledLi>
                   
                 })}
                 </ul>
@@ -31,9 +60,6 @@ const mapStateToProps = (state) => {
     return {
         isLoading: state.isLoading,
         name: state.name,
-        //mainCharacter: state.name.find(character => character.name === 'Rick') || {}
-        //image: state.image,
-        //status: state.status,
     }
 }
 
